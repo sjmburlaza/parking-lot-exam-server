@@ -1,9 +1,24 @@
 const Vehicle = require('./model/Vehicle');
 const Parking = require('./model/Parking');
+const Entrance = require('./model/Entrance');
 
 module.exports.getAllParking = () => {
 	return Parking.find().then(parking => parking)
 };
+
+module.exports.getAllEntrance = () => {
+	return Entrance.find().then(en => en)
+};
+
+module.exports.addEntrance = (params) => {
+    let entrance = new Entrance({
+        id: params.id,
+    });
+
+    return entrance.save().then((en, err) => {
+        return (err) ? false : true;
+    })
+}
 
 module.exports.getAllParked = () => {
 	return Vehicle.find({ isParked: true }).then(v => v)
@@ -26,7 +41,7 @@ module.exports.addParkingSpot = (params) => {
     })
 }
 
-module.exports.updateParkingSpot = (params) => {
+module.exports.updateParking = (params) => {
     return Parking.updateOne(
         {
             id: params.id,
@@ -63,9 +78,9 @@ module.exports.parkVehicle = (params) => {
 }
 
 module.exports.unparkVehicle = (params) => {
-    return Vehicle.updateOne(
+    return Vehicle.updateMany(
         {
-            id: params.id,
+            id: params.id
         },
         {
             $set: {

@@ -6,6 +6,14 @@ router.get('/parking', (req, res) => {
     Controller.getAllParking().then(p => res.send(p))
 });
 
+router.get('/entrance', (req, res) => {
+    Controller.getAllEntrance().then(p => res.send(p))
+});
+
+router.post('/addEntrance', (req, res) => {
+    Controller.addEntrance(req.body).then(result => res.send(result));
+})
+
 router.get('/parked', (req, res) => {
     Controller.getAllParked().then(p => res.send(p))
 });
@@ -18,7 +26,7 @@ router.post('/addParking', (req, res) => {
     Controller.addParkingSpot(req.body).then(result => res.send(result));
 })
 
-router.post('/updateParking', (req, res) => {
+router.put('/updateParking', (req, res) => {
     const params = {
         id: req.body.id,
         size: req.body.size,
